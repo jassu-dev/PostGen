@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostX - Ultimate AI Content Suite</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+        </button>
+        <div class="container">
+            <h1>PostX</h1>
+            <p>AI-powered social media content generator with premium features</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <section class="input-section">
+                <h2>Generate Your Content</h2>
+                <div class="input-field">
+                    <label for="topic-input">Topic</label>
+                    <input type="text" id="topic-input" placeholder="Enter your topic" required>
+                </div>
+                
+                <div class="input-field">
+                    <label for="platform-select">Platform</label>
+                    <select id="platform-select" class="form-control">
+                        <option value="twitter">Twitter/X</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="linkedin">LinkedIn</option>
+                        <option value="facebook">Facebook</option>
+                    </select>
+                </div>
+                
+                <div class="input-field">
+                    <label for="tone-select">Tone</label>
+                    <select id="tone-select" class="form-control">
+                        <option value="professional">Professional</option>
+                        <option value="casual">Casual</option>
+                        <option value="enthusiastic">Enthusiastic</option>
+                        <option value="humorous">Humorous</option>
+                    </select>
+                </div>
+                
+                <div class="input-field">
+                    <label for="char-limit">Character Limit</label>
+                    <input type="number" id="char-limit" min="50" max="1000" value="280" class="form-control">
+                    <small>Min: 50, Max: 1000 characters</small>
+                </div>
+                
+                <div class="input-field">
+                    <label for="description">Description</label>
+                    <textarea id="description" rows="4" placeholder="Enter your description..." class="form-control" required></textarea>
+                </div>
+                <button id="generate-btn" class="generate-btn">
+                    <i class="fas fa-magic"></i>
+                    <span>Generate Content</span>
+                </button>
+            </section>
+
+            <div class="loading" id="loading-indicator" style="display: none;">
+                <div class="spinner"></div>
+                <p>Generating your optimized content...</p>
+            </div>
+
+            <section class="output-section" id="output-section">
+                <!-- Generated content will appear here -->
+            </section>
+
+            <section class="premium-features">
+                <h2><i class="fas fa-crown"></i> Premium Features</h2>
+                <div class="feature-tabs">
+                    <button class="tab-btn active" data-tab="ai-tools">AI Tools</button>
+                    <button class="tab-btn" data-tab="metaverse">Metaverse</button>
+                    <button class="tab-btn" data-tab="analytics">Analytics</button>
+                </div>
+
+                <div id="ai-tools" class="tab-content active">
+                    <div class="ai-tool">
+                        <h3><i class="fas fa-microphone-alt"></i> AI Voiceovers</h3>
+                        <div class="voice-controls">
+                            <label for="voice-style">Voice Selection (Google Cloud TTS)</label>
+                            <select id="voice-style">
+                                <option value="en-US-Standard-A">en-US-Standard-A (Female, Neutral)</option>
+                                <option value="en-US-Standard-B">en-US-Standard-B (Male, Neutral)</option>
+                                <option value="en-US-Standard-C">en-US-Standard-C (Female, Newscaster)</option>
+                                <option value="en-US-Standard-D">en-US-Standard-D (Male, Newscaster)</option>
+                                <option value="en-US-Neural2-A">en-US-Neural2-A (Female, Conversational)</option>
+                                <option value="en-US-Neural2-D">en-US-Neural2-D (Male, Conversational)</option>
+                                <option value="en-US-Neural2-F">en-US-Neural2-F (Female, Conversational)</option>
+                                <option value="en-US-Neural2-J">en-US-Neural2-J (Male, Conversational)</option>
+                                <option value="en-US-Wavenet-D">en-US-Wavenet-D (Male, Professional)</option>
+                                <option value="en-US-Wavenet-F">en-US-Wavenet-F (Female, Friendly)</option>
+                            </select>
+                            <textarea id="voice-text" rows="3" placeholder="Enter text for voiceover..." required></textarea>
+                            <button id="generate-voice">Generate Voice</button>
+                        </div>
+                        <audio id="voice-preview" controls style="display: none; width: 100%; margin-top: 1rem;"></audio>
+                        <div id="voice-status" class="status"></div>
+                    </div>
+                </div>
+
+                <div id="metaverse" class="tab-content">
+                    <div class="metaverse-tool">
+                        <h3><i class="fas fa-coins"></i> NFT Creator</h3>
+                        <textarea id="nft-content" rows="2" placeholder="Enter description for your NFT image..."></textarea>
+                        <button id="mint-nft" class="web3-button">Mint as NFT</button>
+                        <div id="nft-status" class="status"></div>
+                        <div id="nft-preview" class="images-container" style="display: none; margin-top: 1rem;">
+                            <h4>Generated NFT Image:</h4>
+                            <div class="image-grid" id="nft-image-grid"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="analytics" class="tab-content">
+                    <div class="analytics-tool">
+                        <h3><i class="fas fa-chart-line"></i> Performance Analytics</h3>
+                        <div class="analytics-input">
+                            <label for="analytics-platform">Platform</label>
+                            <select id="analytics-platform" class="form-control">
+                                <option value="twitter">Twitter/X</option>
+                                <option value="instagram">Instagram</option>
+                                <option value="linkedin">LinkedIn</option>
+                                <option value="facebook">Facebook</option>
+                            </select>
+                            <label for="post-content">Paste Your Post Content</label>
+                            <textarea id="post-content" rows="4" class="form-control" placeholder="Paste the full text of your social media post here..." required></textarea>
+                            <button id="analyze-btn" class="generate-btn">Analyze Post & Competitors</button>
+                        </div>
+                        <div id="analytics-loading" class="loading" style="display: none;">
+                            <div class="spinner"></div>
+                            <p>Analyzing post and competitors...</p>
+                        </div>
+                        <div id="analytics-results" style="display: none;">
+                            <div class="score-section">
+                                <h4>Post Quality Score</h4>
+                                <div id="post-score" class="score-display"></div>
+                                <p id="score-explanation"></p>
+                            </div>
+                            <div class="analysis-section">
+                                <h4>Post Analysis & Improvements</h4>
+                                <div id="post-analysis"></div>
+                                <h5>Suggested Improvements:</h5>
+                                <ul id="improvements-list"></ul>
+                                <h5>Better Post Version:</h5>
+                                <div id="better-post" class="content-preview"></div>
+                            </div>
+                            <div class="competitors-section">
+                                <h4>Effective Competitor Examples on the selected platform</h4>
+                                <div id="competitors-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 PostX. All rights reserved.</p>
+            <p>AI-powered social media content generation.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

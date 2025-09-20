@@ -1,0 +1,11 @@
+Flask
+Flask-CORS
+google-generativeai
+google-cloud-texttospeech
+google-cloud-aiplatform
+vertexai
+Pillow
+python-dotenv
+Werkzeug
+requests
+protobuf
